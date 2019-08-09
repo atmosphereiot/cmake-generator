@@ -181,7 +181,11 @@ class CMakeGenerator {
      * @param {String/Array} types - Filetypes considered to be assembly files. Must be set if setAssemblyAsC is called. Can either be a list of types or a single type.
      */
     setAssemblyFileTypes(types) {
-        this.assemblyFileTypes.push(types);
+        if(Array.isArray(types)) {
+            this.assemblyFileTypes = this.assemblyFileTypes.concat(types);
+        } else {
+            this.assemblyFileTypes.push(types);
+        }
     }
 
     /**
