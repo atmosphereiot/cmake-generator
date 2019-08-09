@@ -347,3 +347,5 @@ SET(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE NEVER)
         return cMakeFile;
     }
 }
+
+module.exports = CMakeGenerator;
