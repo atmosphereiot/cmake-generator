@@ -347,29 +347,3 @@ SET(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE NEVER)
         return cMakeFile;
     }
 }
-
-let generator = new CMakeGenerator();
-generator.setCCompiler('xc32-gcc');
-generator.setCxxCompiler('xc32-g++');
-
-generator.addIncludeDirectories('test/dir/dir1');
-generator.addIncludeDirectories('/test/dir/dir2', absolute = true);
-generator.addIncludeDirectories(['test/dir/dir3', 'test/dir/dir4']);
-generator.addIncludeDirectories(['test/dir/dir5', 'test/dir/dir6'], absolute = true);
-
-generator.addSourceFiles('test/dir/src1.c');
-generator.addSourceFiles('test/dir/src2.c', absolute = true);
-generator.addSourceFiles(['test/dir/src3.S', 'test/dir/src4.c']);
-generator.addSourceFiles(['test/dir/src5.S', 'test/dir/src5.c'], absolute = true);
-
-generator.addAsmFlagsOverride(['-c', '-mprocessor=atmosphere']);
-generator.addCFlagsOverride(['-c', '-testCFlag']);
-generator.addLinkFlagsOverride(['-testLinkFlag1', '-testLinkFlag2']);
-generator.setAssemblyAsC();
-generator.setAssemblyFileTypes('.S');
-generator.setCustomLinkCommand('test-link');
-generator.setExecutableName('Test_Project.elf');
-generator.addLinkLibraries('test/lib/lib2.a');
-generator.addPostBuildCommand('my-customcommand', undefined, 'my comment');
-
-console.log(generator.getCMakeFile());
