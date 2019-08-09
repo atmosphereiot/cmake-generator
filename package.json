@@ -1,0 +1,15 @@
+{
+  "name": "cmake-generator",
+  "version": "1.0.0",
+  "description": "Utility for generating CMakeLists.txt files, designed for Cross Compilation.",
+  "license": "MIT",
+  "author": "Atmosphere IoT Corp.",
+  "main": "cmake-generator.js",
+  "url": "https://atmosphereiot.com",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/atmosphereiot/cmake-generator.git"
+  },
+  "dependencies": {
+  }
+}
