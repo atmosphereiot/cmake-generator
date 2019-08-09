@@ -255,7 +255,7 @@ SET(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE NEVER)
 
 `
         cMakeFile += this._getIncludeDirectories();
-        cMakeFile += this._getFlags('CMAKE_ASM_FLAGS', this.asmFlagsOverride);
+
         cMakeFile += this._getFlags('CMAKE_C_FLAGS', this.cFlagsOverride);
         cMakeFile += this._getFlags('CMAKE_CXX_FLAGS', this.cxxFlagsOverride);
 
@@ -312,8 +312,12 @@ SET(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE NEVER)
             if (currentGenerator.assemblyAsC && currentGenerator.assemblyFileTypes.length > 0) {
                 // If the source file is an assembly file
                 currentGenerator.assemblyFileTypes.forEach(function (fileType) {
+                    console.log("Src: " + source.source);
+                    console.log("Type:" + fileType);
                     if (source.source.endsWith(fileType)) {
+
                         cMakeFile += `set_property(SOURCE ${source.source} PROPERTY LANGUAGE C)\n`
+                        cMakeFile += `set_property(SOURCE ${source.source} PROPERTY COMPILE_FLAGS "${currentGenerator.asmFlagsOverride}")\n`
                     }
                 });
             }
