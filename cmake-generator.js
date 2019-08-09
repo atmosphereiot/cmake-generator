@@ -219,15 +219,22 @@ class CMakeGenerator {
      * @param {String} comment Comment to be displayed to user when command runs. OPTIONAL
      */
     addPostBuildCommand(command, workingDir, comment) {
-        this.postBuildCommand = { 'command': command };
+        if(this.postBuildCommand === undefined) {
+            this.postBuildCommand = [];
+        }
+
+        let cmdObj = {};
+        cmdObj = { 'command': command };
 
         if (workingDir) {
-            this.postBuildCommand.workingDir = workingDir;
+            cmdObj.workingDir = workingDir;
         }
 
         if (comment) {
-            this.postBuildCommand.comment = comment;
+            cmdObj.comment = comment;
         }
+
+        this.postBuildCommand.push(cmdObj);
     }
 
     /**
@@ -320,19 +327,19 @@ SET(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE NEVER)
     _getPostBuild() {
         let currentGenerator = this;
         let cMakeFile = '';
-        if (currentGenerator.postBuildCommand) {
-            cMakeFile += `add_custom_command(TARGET ${currentGenerator.execName} POST_BUILD COMMAND ${this.postBuildCommand.command}`;
+        currentGenerator.postBuildCommand.forEach((command) => {
+            cMakeFile += `add_custom_command(TARGET ${currentGenerator.execName} POST_BUILD COMMAND ${command.command}`;
 
-            if (currentGenerator.postBuildCommand.workingDir) {
-                cMakeFile += ` WORKING_DIRECTORY ${currentGenerator.postBuildCommand.workingDir}`;
+            if (command.workingDir) {
+                cMakeFile += ` WORKING_DIRECTORY ${command.workingDir}`;
             }
 
-            if (currentGenerator.postBuildCommand.comment) {
-                cMakeFile += ` COMMENT "${currentGenerator.postBuildCommand.comment}"`;
+            if (command.comment) {
+                cMakeFile += ` COMMENT "${command.comment}"`;
             }
 
             cMakeFile += `)\n\n`;
-        }
+        });
 
         return cMakeFile;
     }
