@@ -312,8 +312,6 @@ SET(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE NEVER)
             if (currentGenerator.assemblyAsC && currentGenerator.assemblyFileTypes.length > 0) {
                 // If the source file is an assembly file
                 currentGenerator.assemblyFileTypes.forEach(function (fileType) {
-                    console.log("Src: " + source.source);
-                    console.log("Type:" + fileType);
                     if (source.source.endsWith(fileType)) {
 
                         cMakeFile += `set_property(SOURCE ${source.source} PROPERTY LANGUAGE C)\n`
