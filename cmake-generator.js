@@ -329,6 +329,11 @@ SET(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE NEVER)
     _getPostBuild() {
         let currentGenerator = this;
         let cMakeFile = '';
+
+        if(currentGenerator.postBuildCommand === undefined) {
+            return cMakeFile;
+        }
+        
         currentGenerator.postBuildCommand.forEach((command) => {
             cMakeFile += `add_custom_command(TARGET ${currentGenerator.execName} POST_BUILD COMMAND ${command.command}`;
 
